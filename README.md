@@ -2,34 +2,34 @@
 Custom Discord Bot is a simple (for now) discord bot aiming to be easily expandable.
 
 ## Current Commands
-!help - Display this message
-!who - Display your username
-!whoid - Display your user ID
-!roll - Roll a dice
-!ai [prompt] - ChatGPT AI
-!wash [user] - Wash a user
-!wipe - Wipe chat
-!lol [RiotID]#[Tagline] wr - Get winrate for last 10 games
-!play [url] - Play a song
-!queue [url] - Add a song to the queue
-!skip - Skip current song
-!clear - Clear the queue
-!pause - Pause current song
-!resume - Resume current song
-!stop - Stop current song, & remove bot from call
+- !help - Display this message
+- !who - Display your username
+- !whoid - Display your user ID
+- !roll - Roll a dice
+- !ai [prompt] - ChatGPT AI
+- !wash [user] - Wash a user
+- !wipe - Wipe chat
+- !lol [RiotID]#[Tagline] wr - Get winrate for last 10 games
+- !play [url] - Play a song
+- !queue [url] - Add a song to the queue
+- !skip - Skip current song
+- !clear - Clear the queue
+- !pause - Pause current song
+- !resume - Resume current song
+- !stop - Stop current song, & remove bot from call
 
 ## Setup & Installation
 - Clone the repositiory and ensure you have Python 3.10+ installed.
 - Then install the dependecies using: pip install -r requirements.txt
-- Create an .env file in the root directory with your varius Tokens, API keys, Server/User ids.
-Should look like
-DISCORD_TOKEN=your_discord_bot_token
-RIOT_API_KEY=your_riot_api_key
-OPENAI_API_KEY=your_openai_api_key
-PRIMARY_GUILD=your_server_id
-BOT_OWNER=your_user_id
-WASHING=channel_id_for_wash
-MACHINE=channel_id_for_machine
+- Create an .env file in the root directory with your varius Tokens, API keys, Server/User ids.  
+Should look like  
+DISCORD_TOKEN=your_discord_bot_token  
+RIOT_API_KEY=your_riot_api_key  
+OPENAI_API_KEY=your_openai_api_key  
+PRIMARY_GUILD=your_server_id  
+BOT_OWNER=your_user_id  
+WASHING=channel_id_for_wash  
+MACHINE=channel_id_for_machine  
 - launch with: python main.py
 
 ## Extra Info
