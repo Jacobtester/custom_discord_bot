@@ -6,7 +6,9 @@ from handlers import chatwipe_handler
 from handlers import ai_handler
 from handlers import riot_handler
 from handlers import music_handler
+from settings import active_features
 
+active_features = active_features()
 
 async def check_command(message, client) -> str:
     user_message = str(message.content).lower()
@@ -26,7 +28,7 @@ async def check_command(message, client) -> str:
 
 
     #Advanced commands
-    if user_message.startswith("!wash"):
+    if user_message.startswith("!wash") and active_features["Washing"]:
         member_to_wash = user_message[6:]
         rmsg = await wash_handler.wash_command(member_to_wash, message, client)
         return rmsg
@@ -34,13 +36,13 @@ async def check_command(message, client) -> str:
     if user_message.startswith(("!wipe", "!cw", "!chatwipe")):
         return await chatwipe_handler.chatwipe_command(message)
     
-    if user_message.startswith("!ai"):
+    if user_message.startswith("!ai") and active_features["OpenAI"]:
         return await ai_handler.ai_command(message)
     
-    if user_message.startswith("!lol"):
+    if user_message.startswith("!lol") and active_features["Riot"]:
         return await riot_handler.riot_command(message)
     
-    if user_message.startswith(("!play", "!pause", "!stop", "!skip", "!queue", "!clear","!resume")):
+    if user_message.startswith(("!play", "!pause", "!stop", "!skip", "!queue", "!clear","!resume")) and active_features["Youtube"]:
         return await music_handler.music_command(message, client)
 
     return None

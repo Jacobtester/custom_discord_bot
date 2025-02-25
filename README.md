@@ -1,5 +1,6 @@
 # custom_discord_bot
-Custom Discord Bot is a simple (for now) discord bot aiming to be easily expandable.
+Custom Discord Bot is a simple (for now) discord bot aiming to be easily expandable. The code should be easy to read, so im hoping anyone who wants to get into making bots for discord can use this as an example.
+Credit to github.com/MasterReach1 as I used his design for the youtube audio player
 
 ## Current Commands
 - !help - Display this message
@@ -22,6 +23,7 @@ Custom Discord Bot is a simple (for now) discord bot aiming to be easily expanda
 - Clone the repositiory and ensure you have Python 3.10+ installed.
 - Then install the dependecies using: pip install -r requirements.txt
 - Create an .env file in the root directory with your varius Tokens, API keys, Server/User ids.  
+- NOTE: If you do not wish to use certain features then simply dont put their variables into the .env (discord token required)
 Should look like  
 DISCORD_TOKEN=your_discord_bot_token  
 RIOT_API_KEY=your_riot_api_key  
@@ -37,6 +39,6 @@ The washing machine command moves a person from one designated channel to anothe
 BOT_OWNER and PRIMARY_GUILD, are currently used to limit who and what servers are allowed to use the openai api.
 
 ## To be added
-- The ability to disable features (like riot or openai)
-- Make certain environment variables unnecessary
+- Expand Riot related commands
 - Implement any features that seem interesting, fun, or useful
+- Slash command based version?
