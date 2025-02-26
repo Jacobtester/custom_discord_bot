@@ -20,9 +20,9 @@ Credit to github.com/MasterReach1 as I used his design for the youtube audio pla
 - !stop - Stop current song, & remove bot from call
 
 ## Setup & Installation
-- Clone the repositiory and ensure you have Python 3.10+ installed.
-- Then install the dependecies using: pip install -r requirements.txt
-- Create an .env file in the root directory with your varius Tokens, API keys, Server/User ids.  
+- Clone the repository and ensure you have Python 3.10+ installed.
+- Then install the dependencies using: pip install -r requirements.txt
+- Create an .env file in the root directory with your various Tokens, API keys, Server/User ids.  
 - NOTE: If you do not wish to use certain features then simply dont put their variables into the .env (discord token required)
 Should look like  
 DISCORD_TOKEN=your_discord_bot_token  
@@ -35,7 +35,7 @@ MACHINE=channel_id_for_machine
 - launch with: python main.py
 
 ## Extra Info
-The washing machine command moves a person from one designated channel to another designated channel a few times before returning them to their previous channel. This command was added because those in my server have a habbit of deafing themselves in the call while remaining at their pc and in the call. This tends to bring them back quick if we need them because they hear the loud leaving and joining call over and over.
+The washing machine command moves a person from one designated channel to another designated channel a few times before returning them to their previous channel. This command was added because those in my server have a habit of deafening themselves in the call while remaining at their pc and in the call. This tends to bring them back quick if we need them because they hear the loud leaving and joining call over and over.
 BOT_OWNER and PRIMARY_GUILD, are currently used to limit who and what servers are allowed to use the openai api.
 
 ## To be added
