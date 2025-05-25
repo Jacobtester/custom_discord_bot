@@ -5,6 +5,7 @@
 
 #My stuff
 *.env
+*.json
 
 # User-specific files
 *.rsuser

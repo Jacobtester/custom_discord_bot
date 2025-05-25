@@ -2,6 +2,7 @@
 import os
 import discord
 import yt_dlp
+import json
 from openai import AsyncOpenAI
 
 PRIMARY_GUILD = int(os.getenv("PRIMARY_GUILD", "0"))
@@ -48,3 +49,24 @@ def active_features():
         "Riot": bool(RIOT_API_KEY),
         "Washing":  WASHING != 0 and MACHINE != 0,
     }
+
+
+# Allowed users for AI commands (so its not just bot owner and primary guild)
+def loaded_allowed_users():
+    data_dir = "data"
+    filepath = os.path.join(data_dir, "ai_allowed_users.json")
+    os.makedirs(data_dir, exist_ok=True)
+
+    # Does directory data exist? If not, create it
+    if not os.path.exists(filepath):
+        with open(filepath, 'w') as f:
+            json.dump({"allowed_users": []}, f, indent=4)
+    try:
+        with open(filepath, 'r') as f:
+            data = json.load(f)
+            return data.get("allowed_users", [])
+    except Exception as e:
+        print(f"[Settings] Failed to load allowed users: {e}")
+        return set()
+
+AI_ALLOWED_USERS = loaded_allowed_users()
