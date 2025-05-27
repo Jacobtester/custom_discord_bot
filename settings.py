@@ -26,15 +26,6 @@ def intent_settings():
     return intents
 
 
-def ai_settings(prompt):
-    return {
-        "model": "gpt-3.5-turbo",
-        "messages": [{"role": "user", "content": prompt}],
-        "max_tokens": 100,
-        "temperature": 0.7
-    }
-
-
 def ffmpeg_settings():
     yt_dl_opts = {"format": "bestaudio/best"} 
     ytdl = yt_dlp.YoutubeDL(yt_dl_opts)
@@ -48,6 +39,21 @@ def active_features():
         "OpenAI": bool(OPENAI_API_KEY) and ai_client is not None and BOT_OWNER != 0 and PRIMARY_GUILD != 0,
         "Riot": bool(RIOT_API_KEY),
         "Washing":  WASHING != 0 and MACHINE != 0,
+    }
+
+
+# AI RELATED SETTINGS ~~~
+current_model = "gpt-3.5-turbo"
+current_personality = ""
+def ai_settings(prompt):
+    return {
+        "model": current_model,
+        "messages": [
+            {"role": "system", "content": current_personality},
+            {"role": "user", "content": prompt}
+        ],
+        "max_tokens": 200,
+        "temperature": 0.7
     }
 
 
@@ -72,3 +78,12 @@ def loaded_allowed_users():
         return set()
 
 AI_ALLOWED_USERS = loaded_allowed_users()
+
+'''  Default AI settings function
+return {
+        "model": "gpt-3.5-turbo",
+        "messages": [{"role": "user", "content": prompt}],
+        "max_tokens": 200,
+        "temperature": 0.7
+    }
+'''
