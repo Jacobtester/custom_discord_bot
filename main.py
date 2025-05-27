@@ -1,5 +1,5 @@
 #main.py
-#Current Version: 1.2.2
+#Current Version: 1.2.2.1
 import bot
 
 

@@ -53,9 +53,11 @@ def active_features():
 
 # Allowed users for AI commands (so its not just bot owner and primary guild)
 def loaded_allowed_users():
-    data_dir = "data"
-    filepath = os.path.join(data_dir, "ai_allowed_users.json")
-    os.makedirs(data_dir, exist_ok=True)
+    # Paths and filenames
+    settings_dir = os.path.dirname(os.path.abspath(__file__))
+    data_dir_name = "data"
+    data_dir_path = os.path.join(settings_dir, data_dir_name)
+    filepath = os.path.join(data_dir_path, "ai_allowed_users.json")
 
     # Does directory data exist? If not, create it
     if not os.path.exists(filepath):
