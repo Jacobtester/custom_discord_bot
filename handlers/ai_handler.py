@@ -41,7 +41,7 @@ async def handle_modifiers(message):
         prompt = prompt[8:]
         sett.current_model = prompt
         return f"Model is now: {prompt}"
-    #!ai [personallity] ...
+    #!ai [personality] ...
     if prompt.startswith('[personality] '):
         prompt = prompt[14:]
         sett.current_personality = prompt

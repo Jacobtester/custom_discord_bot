@@ -13,6 +13,9 @@ async def help_command() -> str:
     
     if active_features["OpenAI"]: 
         message += "!ai [prompt] - ChatGPT AI\n"
+        message += "!ai [model] (Model name) - Replaces OpenAI model, only available for bot owner\n"
+        message += "!ai [personality] (Personality string) - Gives the AI personality instuctions\n"
+        message += "!ai [current] - Returns the current AI model and personality instructions\n"
     if active_features["Washing"]:
         message += "!wash [user] - Wash a user\n"
     if active_features["Riot"]: 
