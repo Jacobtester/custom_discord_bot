@@ -22,11 +22,18 @@ async def ai_command(message):
         return 'Unavailable in this server'
     
     
+#Returns a string containing the AI's response to a given prompt (string)
 async def get_ai_response(prompt):
     try:
         ai_payload = sett.ai_settings(prompt)
         response = await sett.ai_client.chat.completions.create(**ai_payload)
-        return response.choices[0].message.content.strip()
+        content =  response.choices[0].message.content.strip()
+
+        #Temp fix to discord message size limit
+        if len(content) > 1900: #discords message limit
+            content = content[:1900] + "... (truncated)"
+
+        return content
     except Exception as e:
         print(f'AI error: {e}')
         return 'unable to get response from ai'

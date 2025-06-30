@@ -37,7 +37,7 @@ def run_discord_bot():
                 if response:
                     await message.channel.send(response)
             except Exception as e:
-                print("Bot Error: " + e)
+                print(f"Bot Error: " + e)
 
 
     client.run(TOKEN)

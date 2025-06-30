@@ -43,7 +43,7 @@ def active_features():
 
 
 # AI RELATED SETTINGS ~~~
-current_model = "gpt-3.5-turbo"
+current_model = "gpt-4.1-mini"
 current_personality = ""
 def ai_settings(prompt):
     return {
@@ -52,7 +52,7 @@ def ai_settings(prompt):
             {"role": "system", "content": current_personality},
             {"role": "user", "content": prompt}
         ],
-        "max_tokens": 200,
+        "max_tokens": 1200,
         "temperature": 0.7
     }
 
