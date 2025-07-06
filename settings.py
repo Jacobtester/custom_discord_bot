@@ -65,17 +65,22 @@ def loaded_allowed_users():
     data_dir_path = os.path.join(settings_dir, data_dir_name)
     filepath = os.path.join(data_dir_path, "ai_allowed_users.json")
 
-    # Does directory data exist? If not, create it
+    # Create the data directory if it doesn't exist
+    if not os.path.exists(data_dir_path):
+        os.makedirs(data_dir_path)
+
+    # Does the file exist? If not, create it
     if not os.path.exists(filepath):
         with open(filepath, 'w') as f:
             json.dump({"allowed_users": []}, f, indent=4)
+    
     try:
         with open(filepath, 'r') as f:
             data = json.load(f)
             return data.get("allowed_users", [])
     except Exception as e:
         print(f"[Settings] Failed to load allowed users: {e}")
-        return set()
+        return []  # Return list, not set
 
 AI_ALLOWED_USERS = loaded_allowed_users()
 
