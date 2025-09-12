@@ -16,13 +16,17 @@ async def help_command() -> str:
         message += "!ai [model] (Model name) - Replaces OpenAI model, only available for bot owner\n"
         message += "!ai [personality] (Personality string) - Gives the AI personality instuctions\n"
         message += "!ai [current] - Returns the current AI model and personality instructions\n"
+        message += "!ai [image] - Image Generation"
+        message += "!ai [enable image] - Enable Image Generation"
+        message += "!ai [disable image] - Disable Image Generation"
+
     if active_features["Washing"]:
-        message += "!wash [user] - Wash a user\n"
+        message += "!wash (user) - Wash a user\n"
     if active_features["Riot"]: 
-        message += "!lol [RiotID]#[Tagline] wr - Get winrate for last 10 games\n"
+        message += "!lol (RiotID)#(Tagline) wr - Get winrate for last 10 games\n"
     if active_features["Youtube"]:
-        message += "!play [url] - Play a song\n"
-        message += "!queue [url] - Add a song to the queue\n"
+        message += "!play (url) - Play a song\n"
+        message += "!queue (url) - Add a song to the queue\n"
         message += "!skip - Skip current song\n"
         message += "!clear - Clear the queue\n"
         message += "!pause - Pause current song\n"
