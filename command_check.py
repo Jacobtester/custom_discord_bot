@@ -6,6 +6,7 @@ from handlers import chatwipe_handler
 from handlers import ai_handler
 from handlers import riot_handler
 from handlers import music_handler
+from handlers import insta_handler
 from settings import active_features
 
 active_features = active_features()
@@ -44,6 +45,9 @@ async def check_command(message, client) -> str:
     
     if user_message.startswith(("!play", "!pause", "!stop", "!skip", "!queue", "!clear","!resume")) and active_features["Youtube"]:
         return await music_handler.music_command(message, client)
+
+    if user_message.startswith(("!insta")):
+        return await insta_handler.insta_command(message)
 
     return None
 

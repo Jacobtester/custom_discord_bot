@@ -6,6 +6,7 @@
 #My stuff
 *.env
 *.json
+notes.txt
 
 # User-specific files
 *.rsuser

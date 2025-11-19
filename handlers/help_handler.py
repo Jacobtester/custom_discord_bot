@@ -10,7 +10,8 @@ async def help_command() -> str:
     message += "!whoid - Display your user ID\n"
     message += "!roll - Roll a dice\n"
     message += "!wipe - Wipe chat\n"
-    
+    message += "!insta <link> - Will upload the instagram reel from the link in the chat"
+
     if active_features["OpenAI"]: 
         message += "!ai [prompt] - ChatGPT AI\n"
         message += "!ai [model] (Model name) - Replaces OpenAI model, only available for bot owner\n"
