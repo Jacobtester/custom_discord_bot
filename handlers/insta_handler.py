@@ -2,7 +2,6 @@
 import os
 import asyncio
 import shutil
-import glob
 import discord
 import instaloader
 import settings as sett
@@ -18,6 +17,42 @@ def _extract_shortcode(url: str) -> str:
     if len(parts) >= 2 and parts[0] in ('reel', 'p'):
         return parts[1]
     return parts[-1]
+
+def _get_instaloader() -> instaloader.Instaloader:
+    """
+    Create an Instaloader instance and try to reuse a saved session.
+    This reduces how often Instagram challenges/rate-limits GraphQL requests.
+    """
+    L = instaloader.Instaloader(
+        download_pictures=False,
+        download_videos=True,
+        download_video_thumbnails=False,
+        save_metadata=False,
+        compress_json=False,
+        quiet=True,
+    )
+
+    ig_user = os.getenv("INSTAGRAM_USERNAME")
+    ig_pass = os.getenv("INSTAGRAM_PASSWORD")
+    if not ig_user or not ig_pass:
+        return L  # will run unauthenticated (more likely to be blocked)
+
+    session_dir = os.path.join(sett.DATA_DIR, "insta_session")
+    os.makedirs(session_dir, exist_ok=True)
+    session_file = os.path.join(session_dir, f"session-{ig_user}")
+
+    # Try loading an existing session first
+    try:
+        L.load_session_from_file(ig_user, session_file)
+        print(f"Successfully loaded session for {ig_user}")
+        return L
+    except Exception as e:
+        print(f"Failed to load session: {e}")
+
+    # Fall back to login + save session
+    L.login(ig_user, ig_pass)
+    L.save_session_to_file(session_file)
+    return L
 
 async def insta_command(message):
     user_message = str(message.content).strip()
@@ -37,33 +72,23 @@ async def insta_command(message):
 
     try:
         def download_sync():
-            L = instaloader.Instaloader(
-                download_pictures=False,
-                download_videos=True,
-                download_video_thumbnails=False,
-                save_metadata=False,
-                compress_json=False,
-                dirname_pattern=tmp_dir,
-                filename_pattern="{shortcode}",
-                quiet=True
-            )
-            ig_user = os.getenv("INSTAGRAM_USERNAME")
-            ig_pass = os.getenv("INSTAGRAM_PASSWORD")
-            if ig_user and ig_pass:
-                try:
-                    L.login(ig_user, ig_pass)
-                except Exception:
-                    pass
+            L = _get_instaloader()
             post = instaloader.Post.from_shortcode(L.context, shortcode)
             if not post.is_video:
                 raise RuntimeError("Post is not a video.")
-            # Download only video to reduce noise
+
             vurl = post.video_url
             if not vurl:
                 raise RuntimeError("No video URL found.")
+
             import requests
             mp4_path = os.path.join(tmp_dir, f"{shortcode}.mp4")
-            r = requests.get(vurl, stream=True, timeout=25, headers={"User-Agent": "Mozilla/5.0"})
+            r = requests.get(
+                vurl,
+                stream=True,
+                timeout=25,
+                headers={"User-Agent": "Mozilla/5.0"},
+            )
             r.raise_for_status()
             with open(mp4_path, "wb") as f:
                 for chunk in r.iter_content(8192):
@@ -76,9 +101,25 @@ async def insta_command(message):
         if os.path.getsize(mp4_path) > MAX_UPLOAD_BYTES:
             return "Video too large to upload."
 
+        # Send the video and tag who originally posted the link
         await message.channel.send(
+            content=f"Shared by {message.author.mention}:",
             file=discord.File(mp4_path, filename=os.path.basename(mp4_path))
         )
+        
+        # Try to delete the original !insta message
+        try:
+            await message.delete()
+        except discord.Forbidden:
+            # The bot doesn't have the 'Manage Messages' permission
+            pass
+        except discord.NotFound:
+            # The message was already deleted
+            pass
+        except discord.HTTPException:
+            # Some other error occurred when trying to delete
+            pass
+
         return None
     except Exception as e:
         print(f"Insta download error: {e}")

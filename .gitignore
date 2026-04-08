@@ -7,6 +7,9 @@
 *.env
 *.json
 notes.txt
+session-*
+cookie.py
+.vscode
 
 # User-specific files
 *.rsuser
