@@ -2,5 +2,5 @@ discord.py==2.3.2
 openai==1.61.0
 python-dotenv==1.0.1
 Requests==2.32.3
-yt_dlp==2025.1.26
+yt_dlp==2026.7.4
 instaloader==4.14.2
